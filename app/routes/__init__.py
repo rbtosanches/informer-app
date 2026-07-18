@@ -1,1 +1,1 @@
-"""Routes Package."""
+"""Routes package."""
