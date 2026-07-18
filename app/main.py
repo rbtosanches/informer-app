@@ -1,4 +1,4 @@
-"""FastAPI Application Entry Point."""
+"""Main FastAPI application with routers."""
 
 from fastapi import FastAPI, Request, Depends, HTTPException, status
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -25,10 +25,19 @@ app = FastAPI(
 )
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Setup templates
 templates = Jinja2Templates(directory="templates")
+
+
+# ========================================
+# Import and include routers
+# ========================================
+
+from app.routes.usuarios import router as usuarios_router
+app.include_router(usuarios_router)
 
 
 # ========================================
